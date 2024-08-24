@@ -29,6 +29,7 @@ export const isAuthenticated = async (
   next: NextFunction
 ) => {
   const token = req.cookies.token;
+
   if (!token) {
     return res
       .status(401)

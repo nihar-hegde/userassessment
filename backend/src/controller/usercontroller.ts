@@ -85,7 +85,7 @@ export const login = async (req: Request, res: Response) => {
     res.cookie("token", token, {
       secure: process.env.NODE_ENV === "production",
       httpOnly: true,
-      sameSite: "none",
+      sameSite: "strict",
       maxAge: 3600000, // 1 hour
     });
 
@@ -196,5 +196,14 @@ export const deleteUser = async (req: Request, res: Response) => {
       message: "Something went wrong!",
       error: error,
     });
+  }
+};
+
+export const isLoggedIn = (req: Request, res: Response) => {
+  try {
+    const user = req.indentity;
+    res.json(user);
+  } catch (error) {
+    console.log(error);
   }
 };
